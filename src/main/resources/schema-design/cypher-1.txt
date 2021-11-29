@@ -1,0 +1,10 @@
+CREATE (n13:Task {name: "Food"})<-[:MANAGES]-(n7:Person {name: "Dj"})-[:MANAGED_BY]->(n4:Person {name: "Dinesh"})<-[:IS_ORGANIZING]-(n2:Organizer {eventId: 1})<-[:ORGANIZED_BY]-(n0:Event {name: "Miraya Bday", id: 1})-[:HAPPENING_AT]->(:Location {eventId: 1, time: "11AM-2PM"})-[:BOOKED_AT]->(:Property {address: "1322 Middlecrest dr nw", city: "concord", state: "nc", zipcode: 28027, country: "USA"}),
+(n4)-[:HAS_ROLE]->(n29:Role {roleName: "Manager"})<-[:HAS_ROLE]-(n6:Person {name: "Arti"})<-[:IS_ORGANIZING]-(n2)-[:IS_ORGANIZING]->(n5:Person {name: "Deepti"})<-[:MANAGED_BY]-(n6)-[:MANAGES]->(n15:Task {name: "Decoration"}),
+(n2)-[:IS_ORGANIZING]->(n7)-[:USING_SERVICE {services_used: "Decoration", cost: "$100"}]->(n25:Vendor {vendorName: "BBC Supplier Inc"}),
+(n25)-[:SUPPLIES]->(n16:Supplier {eventId: 1})<-[:SUPPLIES]-(n0)-[:NEEDS]->(n12:ITEMS {eventId: 1})-[:NEEDS]->(n13),
+(n15)<-[:NEEDS]-(n12)-[:NEEDS]->(:Task {name: "Flowers"})<-[:MANAGES]-(n5)-[:USING_SERVICE {serviceName: "photography", cost: "$150"}]->(n19:Service {serviceName: "Photography"}),
+(:Service {serviceName: "Flowers"})<-[:PROVIDES]-(n25)-[:PROVIDES]->(:Service {serviceName: "Decoration"}),
+(n16)<-[:SUPPLIES]-(:Vendor {vendorName: "ABC Supplier Inc"})-[:PROVIDES]->(n19),
+(:Person {name: "Srini"})<-[:IS_INVITED {rsvp: "no"}]-(n0)-[:IS_INVITED {rsvp: "yes"}]->(:Person {name: "Raghu"}),
+(n0)-[:IS_INVITED {rsvp: "yes"}]->(:Person {name: "Anuja"}),
+(n7)-[:HAS_ROLE]->(n29)<-[:HAS_ROLE]-(n5)-[:HAS_ROLE]->(:Role {roleName: "Organizer"})<-[:HAS_ROLE]-(n4)

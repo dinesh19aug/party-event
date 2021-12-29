@@ -1,0 +1,325 @@
+{
+  "nodes": [
+    {
+      "id": "n0",
+      "position": {
+        "x": 45.8994857999096,
+        "y": -324.46894934756483
+      },
+      "caption": "",
+      "labels": [
+        "Event"
+      ],
+      "properties": {
+        "name": "Miraya BirthDay",
+        "type": "Conference/party/meeting",
+        "orgName": "Abc Inc",
+        "orgUrl": "",
+        "eventUrl": ""
+      },
+      "style": {
+        "border-color": "#333333",
+        "node-color": "#f44e3b",
+        "property-color": "#000000",
+        "label-color": "#ffffff"
+      }
+    },
+    {
+      "id": "n1",
+      "position": {
+        "x": 45.8994857999096,
+        "y": 24.72314415413905
+      },
+      "caption": "",
+      "labels": [
+        "Person"
+      ],
+      "properties": {
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "mobile_number": ""
+      },
+      "style": {
+        "node-color": "#fcdc00",
+        "property-color": "#000000",
+        "label-color": "#ffffff"
+      }
+    },
+    {
+      "id": "n2",
+      "position": {
+        "x": -297.22831228492885,
+        "y": -40.07216698450003
+      },
+      "caption": "",
+      "labels": [
+        "Address"
+      ],
+      "properties": {
+        "address_line_1": "",
+        "address_line_2": "",
+        "city": "",
+        "state": "",
+        "country": "",
+        "zip": "",
+        "org_name": "",
+        "room_number": "",
+        "floor_number": ""
+      },
+      "style": {
+        "node-color": "#dbdf00",
+        "property-position": "inside",
+        "property-color": "#000000",
+        "label-color": "#ffffff"
+      }
+    },
+    {
+      "id": "n3",
+      "position": {
+        "x": -242.79913120549688,
+        "y": -566.9827978887502
+      },
+      "caption": "",
+      "labels": [
+        "SubEvent"
+      ],
+      "properties": {
+        "event_name": "",
+        "time": "",
+        "speaker": "",
+        "organizer": "",
+        "orgName": "",
+        "eventUrl": "",
+        "orgUrl": "",
+        "description": "",
+        "start_time": "",
+        "end_time": ""
+      },
+      "style": {
+        "node-color": "#a4dd00",
+        "label-color": "#ffffff",
+        "property-color": "#000000"
+      }
+    },
+    {
+      "id": "n4",
+      "position": {
+        "x": 286.738620303861,
+        "y": -553.3036736731409
+      },
+      "caption": "",
+      "labels": [
+        "Task"
+      ],
+      "properties": {
+        "name": "",
+        "desc": "",
+        "total_hours": "",
+        "start_date": "",
+        "end_date": "",
+        "total_cost": ""
+      },
+      "style": {
+        "node-color": "#68ccca",
+        "border-color": "#A6B7C8",
+        "label-color": "#ffffff",
+        "property-color": "#000000"
+      }
+    },
+    {
+      "id": "n5",
+      "position": {
+        "x": 417.85219418162586,
+        "y": -40.07216698449986
+      },
+      "caption": "",
+      "labels": [
+        "Item"
+      ],
+      "properties": {
+        "name": "",
+        "description": "",
+        "cost": "",
+        "time_needed": "",
+        "start_date": "",
+        "end_date": "",
+        "status": ""
+      },
+      "style": {
+        "node-color": "#73d8ff",
+        "label-color": "#ffffff",
+        "property-color": "#000000"
+      }
+    },
+    {
+      "id": "n6",
+      "position": {
+        "x": 60.31194094834848,
+        "y": 350.7760337671175
+      },
+      "caption": "",
+      "labels": [
+        "Provider"
+      ],
+      "properties": {
+        "type": "",
+        "offer": "",
+        "discount": "",
+        "services": "",
+        "cost": "",
+        "business_hrs": ""
+      },
+      "style": {
+        "node-color": "#aea1ff",
+        "label-color": "#ffffff",
+        "property-color": "#000000"
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "id": "n0",
+      "fromId": "n0",
+      "toId": "n1",
+      "type": "is_invited",
+      "properties": {
+        "role": ""
+      },
+      "style": {}
+    },
+    {
+      "id": "n1",
+      "fromId": "n1",
+      "toId": "n2",
+      "type": "residing_at",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n2",
+      "fromId": "n0",
+      "toId": "n3",
+      "type": "has_subEvent",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n3",
+      "fromId": "n3",
+      "toId": "n2",
+      "type": "has_venue",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n4",
+      "fromId": "n1",
+      "toId": "n3",
+      "type": "is_attending",
+      "properties": {
+        "rsvp": ""
+      },
+      "style": {}
+    },
+    {
+      "id": "n5",
+      "fromId": "n3",
+      "toId": "n4",
+      "type": "has_things_todo",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n6",
+      "fromId": "n4",
+      "toId": "n5",
+      "type": "has_check_list",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n7",
+      "fromId": "n1",
+      "toId": "n4",
+      "type": "manages_task",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n8",
+      "fromId": "n1",
+      "toId": "n5",
+      "type": "works_on",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n9",
+      "fromId": "n6",
+      "toId": "n2",
+      "type": "has_provider_address",
+      "properties": {},
+      "style": {}
+    },
+    {
+      "id": "n10",
+      "fromId": "n5",
+      "toId": "n6",
+      "type": "fulfilled_by",
+      "properties": {},
+      "style": {}
+    }
+  ],
+  "style": {
+    "font-family": "Fira Code",
+    "background-color": "#2B2B2B",
+    "node-color": "#2B2B2B",
+    "border-width": 2,
+    "border-color": "#A6B7C8",
+    "radius": 90,
+    "node-padding": 5,
+    "node-margin": 2,
+    "outside-position": "auto",
+    "node-icon-image": "",
+    "node-background-image": "",
+    "icon-position": "inside",
+    "icon-size": 64,
+    "caption-position": "inside",
+    "caption-max-width": 200,
+    "caption-color": "#A6B7C8",
+    "caption-font-size": 18,
+    "caption-font-weight": "normal",
+    "label-position": "inside",
+    "label-display": "bare",
+    "label-color": "#A6B7C8",
+    "label-background-color": "#ffffff",
+    "label-border-color": "#000000",
+    "label-border-width": 4,
+    "label-font-size": 18,
+    "label-padding": 5,
+    "label-margin": 4,
+    "directionality": "directed",
+    "detail-position": "inline",
+    "detail-orientation": "parallel",
+    "arrow-width": 2,
+    "arrow-color": "#A6B7C8",
+    "margin-start": 0,
+    "margin-end": 0,
+    "margin-peer": 20,
+    "attachment-start": "normal",
+    "attachment-end": "normal",
+    "relationship-icon-image": "",
+    "type-color": "#A6B7C8",
+    "type-background-color": "#2B2B2B",
+    "type-border-color": "#000000",
+    "type-border-width": 0,
+    "type-font-size": 18,
+    "type-padding": 5,
+    "property-position": "inside",
+    "property-alignment": "colon",
+    "property-color": "#A6B7C8",
+    "property-font-size": 18,
+    "property-font-weight": "normal"
+  }
+}

@@ -8,11 +8,15 @@ import lombok.Data;
 
 /**
  *
- * @author dines
+ * @author dinesh
  */
 @Data
 @AllArgsConstructor
 public class Event {
-  private String organizer_email;
-  private List<Invitee> inviteeList;  
+  private String name;
+  private Enum<Type> eventType;
+  private  String orgName;
+  private String orgUrl;
+  private String eventUrl;
+
 }

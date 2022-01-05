@@ -7,7 +7,7 @@ import java.util.Locale.IsoCountryCode;
 
 @AllArgsConstructor
 @Data
-@NodeEntity("Address")
+//@NodeEntity("Address")
 public class Address {
     private String addressLine_1;
     private String addressLine_2;

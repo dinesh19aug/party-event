@@ -1,5 +1,11 @@
 package com.party.vo;
 
 public enum Type {
-    BIRTHDAY, PARTY, CONFERENCE, WEDDING, ANNIVERSARY, TALK
+    BIRTHDAY("BIRTHDAY"), PARTY("PARTY"), CONFERENCE("CONFERENCE"), WEDDING("WEDDING"), ANNIVERSARY("ANNIVERSARY"), TALK("TALK");
+
+    private String value;
+
+     Type(String value) {
+        this.value = value;
+    }
 }

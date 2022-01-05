@@ -17,6 +17,7 @@
         <quarkus.platform.version>2.4.2.Final</quarkus.platform.version>
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
         <lombok-maven-plugin.version>1.18.20.0</lombok-maven-plugin.version>
+        <neo4j-ogm-core.version>3.2.28</neo4j-ogm-core.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -69,7 +70,7 @@
         <dependency>
             <groupId>org.neo4j</groupId>
             <artifactId>neo4j-ogm-core</artifactId>
-            <version>3.2.8</version>
+            <version>${neo4j-ogm-core.version}</version>
             <scope>compile</scope>
         </dependency>
 
@@ -77,8 +78,13 @@
         <dependency>
             <groupId>org.neo4j</groupId>
             <artifactId>neo4j-ogm-bolt-driver</artifactId>
-            <version>3.2</version>
+            <version>${neo4j-ogm-core.version}</version>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-ogm-bolt-native-types</artifactId>
+            <version>${neo4j-ogm-core.version}</version>
         </dependency>
 
     </dependencies>

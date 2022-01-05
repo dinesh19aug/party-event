@@ -9,7 +9,7 @@ import static org.hamcrest.CoreMatchers.is;
 @QuarkusTest
 public class EventResourceTest {
 
-    @Test
+    //@Test
     public void testHelloEndpoint() {
         given()
           .when().get("/party/event")

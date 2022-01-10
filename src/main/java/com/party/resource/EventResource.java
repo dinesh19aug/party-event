@@ -3,6 +3,8 @@ package com.party.resource;
 
 import com.party.service.impl.EventService;
 import com.party.vo.Event;
+import com.party.vo.EventStatus;
+
 import javax.inject.Inject;
 
 import javax.validation.Valid;
@@ -10,56 +12,55 @@ import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
 
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
-import com.party.vo.Movie;
-
-import org.neo4j.driver.Driver;
-import org.neo4j.driver.async.AsyncSession;
-
-import java.util.concurrent.CompletionStage;
+import java.util.Collection;
 
 /**
  *
  * @author dines
  */
-@Path("/party")
+@Path("/party/event")
 
 public class EventResource {
     @Inject
     EventService eventService;
-   /* @Inject
-    Driver driver;*/
-    @GET
-    @Path("event")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getEvent(){
-        Event event = eventService.execute();
-        return Response.ok(event).build();
-    }
+
 
     @POST
-    @Path("event")
+    @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void createEvent(@Valid @NotNull Event event){
-        eventService.create(event);
+    public EventStatus createEvent(@Valid @NotNull Event event){
+        return eventService.create(event);
     }
 
+    @GET
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Collection<Event> getAllEvents(){
+        return eventService.get();
+    }
 
-    /*@GET
-    @Path("movie")
-    public CompletionStage<Response> getMovie(){
-        AsyncSession session = driver.asyncSession();
-        return session
-                .runAsync("MATCH (m:Movie) RETURN m ORDER BY m.title")
-                .thenCompose(cursor ->
-                        cursor.listAsync(record -> Movie.from(record.get("m").asNode()))
-                )
-                .thenCompose(movies ->
-                        session.closeAsync().thenApply(signal -> movies)
-                )
-                .thenApply(Response::ok)
-                .thenApply(Response.ResponseBuilder::build);
-    }*/
+    @PUT
+    @Path("{nodeId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public EventStatus updateEvent(@PathParam("nodeId") long eventId, Event event){
+        return eventService.updateByNodeId(eventId, event);
+    }
+
+    @DELETE
+    @Path("{nodeId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public EventStatus deleteOrderByNodeId(@PathParam("nodeId") long eventId){
+        return  eventService.deleteByNodeId(eventId);
+    }
+    //Get All events by organizer email
+
+
+
+
+
 }

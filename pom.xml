@@ -18,6 +18,8 @@
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
         <lombok-maven-plugin.version>1.18.20.0</lombok-maven-plugin.version>
         <neo4j-ogm-core.version>3.2.28</neo4j-ogm-core.version>
+        <commons-beanutils.version>1.9.4</commons-beanutils.version>
+        <spring-beans.version>5.3.14</spring-beans.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -86,6 +88,12 @@
             <artifactId>neo4j-ogm-bolt-native-types</artifactId>
             <version>${neo4j-ogm-core.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring-beans.version}</version>
+        </dependency>
+
 
     </dependencies>
     <build>

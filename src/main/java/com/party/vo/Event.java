@@ -39,6 +39,9 @@ public class Event {
   @Relationship(type = "is_invited")
   Set<Person> guests= new HashSet<>();
 
+  @Relationship(type = "has_subevent")
+  Set<SubEvent> subEvents = new HashSet<>();
+
   public Long getId() {
     return id;
   }
@@ -93,5 +96,13 @@ public class Event {
 
   public void setGuests(Set<Person> guests) {
     this.guests = guests;
+  }
+
+  public Set<SubEvent> getSubEvents() {
+    return subEvents;
+  }
+
+  public void setSubEvents(Set<SubEvent> subEvents) {
+    this.subEvents = subEvents;
   }
 }

@@ -6,3 +6,6 @@ quarkus:
     authentication:
       username: neo4j
       password: neo4j
+
+  arc:
+    transform-unproxyable-classes: true

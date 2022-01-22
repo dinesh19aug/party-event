@@ -1,14 +1,13 @@
 package com.party.vo;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.neo4j.ogm.annotation.GeneratedValue;
-import org.neo4j.ogm.annotation.Id;
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Property;
+import org.neo4j.ogm.annotation.*;
+import org.neo4j.ogm.annotation.typeconversion.DateString;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 @Data
 @NodeEntity
 public class SubEvent {
@@ -17,15 +16,24 @@ public class SubEvent {
     Long id;
     @Property(name = "event_name")
     private String eventName;
+
     @Property(name = "event_start_date")
-    private LocalDate eventStartDate;
+   // @Convert(LocalDateConverter.class)
+    @DateString("yyyy-MM-dd")
+    private Date eventStartDate;
+
     @Property(name = "event_end_date")
-    private LocalDate eventEndDate;
-    @Property(name = "start_time")
-    private LocalTime startTime;
+    //@Convert(LocalDateConverter.class)
+    @DateString("yyyy-MM-dd")
+    private Date eventEndDate;
+
+    /*@Property(name = "start_time")
+    @DateString("HH:mm")
+      private LocalTime startTime;
+    @DateString("HH:mm")
     @Property(name = "end_time")
     private LocalTime endTime;
-    @Property(name = "speaker_name")
+    */@Property(name = "speaker_name")
     private String speakerName;
     @Property(name = "organizer_name")
     private String organizerName;
@@ -37,5 +45,8 @@ public class SubEvent {
     private String orgUrl;
     @Property(name = "event_description")
     private String eventDescription;
+
+    @Relationship(type = "has_subevent", direction = Relationship.INCOMING)
+    Set<Event> event = new HashSet<>();
 
 }

@@ -1,17 +1,11 @@
 
 package com.party.vo;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.neo4j.ogm.annotation.*;
 import org.neo4j.ogm.annotation.typeconversion.EnumString;
-import org.neo4j.ogm.id.UuidStrategy;
+
+import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -21,10 +15,13 @@ import org.neo4j.ogm.id.UuidStrategy;
 
 @NodeEntity
 public class Event {
-  @Id @GeneratedValue Long id;
+  @Id
+  @GeneratedValue
+  @Index
+  private Long id;
 
-  @Property @Id
-  private String name;
+  @Property
+  private String eventName;
 
   @Property
   @EnumString(Type.class)
@@ -37,26 +34,28 @@ public class Event {
   private String eventUrl;
 
   @Relationship(type = "is_invited")
-  Set<Person> guests= new HashSet<>();
+  Set<Person> guests;
 
   @Relationship(type = "has_subevent")
-  Set<SubEvent> subEvents = new HashSet<>();
+  List<SubEvent> subEvent;
 
-  public Long getId() {
-    return id;
+  public List<SubEvent> getSubEvent() {
+    return subEvent;
   }
 
-  public void setId(Long id) {
-    this.id = id;
+  public void setSubEvent(List<SubEvent> subEvent) {
+    this.subEvent = subEvent;
   }
 
-  public String getName() {
-    return name;
+  public String getEventName() {
+    return eventName;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setEventName(String eventName) {
+    this.eventName = eventName;
   }
+
+
 
   public Type getEventType() {
     return eventType;
@@ -98,11 +97,6 @@ public class Event {
     this.guests = guests;
   }
 
-  public Set<SubEvent> getSubEvents() {
-    return subEvents;
-  }
 
-  public void setSubEvents(Set<SubEvent> subEvents) {
-    this.subEvents = subEvents;
-  }
+
 }

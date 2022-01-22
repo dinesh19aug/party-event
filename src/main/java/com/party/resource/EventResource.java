@@ -1,9 +1,9 @@
 
 package com.party.resource;
 
-import com.party.service.impl.EventService;
+import com.party.service.impl.EventServiceImpl;
 import com.party.vo.Event;
-import com.party.vo.EventStatus;
+import com.party.vo.status.EventStatus;
 
 import javax.inject.Inject;
 
@@ -23,7 +23,7 @@ import java.util.Collection;
 
 public class EventResource {
     @Inject
-    EventService eventService;
+    EventServiceImpl eventService;
 
 
     @POST

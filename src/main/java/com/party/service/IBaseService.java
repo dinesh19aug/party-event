@@ -1,22 +1,15 @@
 package com.party.service;
 
-import com.party.vo.Event;
-import com.party.vo.EventStatus;
 import org.neo4j.ogm.session.Session;
 import org.neo4j.ogm.transaction.Transaction;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
-
-/**
- *
- * @author dines
- */
-
-public interface IEventService {
-
-
+public interface IBaseService {
     default String[] getNullPropertyNames(Object source) {
         List<String> nullValuePropertyNames = new ArrayList<>();
         for (Field f : source.getClass().getDeclaredFields()) {
@@ -47,10 +40,4 @@ public interface IEventService {
             throw e;
         }
     }
-
-    Collection<Event> get();
-
-    EventStatus deleteByNodeId(long eventId);
-
-    EventStatus updateByNodeId(long eventId, Event event);
 }

@@ -70,29 +70,24 @@ public final class SubEventServiceImpl extends SubEventService {
     public EventStatus update(SubEvent newSubEvent, long eventId, long subEventId) {
         Session session = sessionFactory.openSession();
         EventStatus eventStatus = EventStatus.builder().build();
-        Optional<Event> optionalEvent = getOptionalEventById(eventId,session);
+        Optional<Event> optionalEvent = getOptionalEventById(eventId, session);
         //If event present
         optionalEvent.ifPresentOrElse((event -> {
-                                                    Optional<SubEvent> resultSE = event.getSubEvent().stream().filter(se -> se.getId() == subEventId).findFirst();
-                                                    resultSE.ifPresentOrElse(oldSubEvent -> {
-                                                                                                BeanUtils.copyProperties(newSubEvent, oldSubEvent, getNullPropertyNames(newSubEvent));
-                                                                                                runInTransaction(() -> session.save(event), session);
-                                                                                                eventStatus.setStatus("SubEvent with id " + subEventId + " is updated");
-                                                                                             },
-                                                                                        () -> {
-                                                                                                eventStatus.setStatus("Failed to update SubEvent: " + subEventId);
-                                                                                                EventError error = EventError.builder().errorDesc("SubEvent not found").build();
-                                                                                                eventStatus.setError(error);
-                                                                                               }
-                                                                               );
-                                               }
-                                       ),
-                                        () -> {
-                                                eventStatus.setStatus("Failed to update SubEvent: " + subEventId);
-                                                EventError error= EventError.builder().errorDesc("Event id:" + eventId + " does not exist").build();
-                                                eventStatus.setError(error);
-                                               }
-                                               );
+                    Optional<SubEvent> resultSE = event.getSubEvent().stream().filter(se -> se.getId() == subEventId).findFirst();
+                    resultSE.ifPresentOrElse(oldSubEvent -> {
+                                BeanUtils.copyProperties(newSubEvent, oldSubEvent, getNullPropertyNames(newSubEvent));
+                                runInTransaction(() -> session.save(event), session);
+                                eventStatus.setStatus("SubEvent with id " + subEventId + " is updated");
+                            },() -> {
+                                eventStatus.setStatus("Failed to update SubEvent: " + subEventId);
+                                EventError error = EventError.builder().errorDesc("SubEvent not found").build();
+                                eventStatus.setError(error);
+                            });
+                }), () -> {
+                    eventStatus.setStatus("Failed to update SubEvent: " + subEventId);
+                    EventError error = EventError.builder().errorDesc("Event id:" + eventId + " does not exist").build();
+                    eventStatus.setError(error);
+                });
 
         return eventStatus;
     }

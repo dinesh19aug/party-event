@@ -36,20 +36,15 @@ public class EventServiceImpl extends EventService {
             session.save(event);
             eventStatus.status("Event is created");
         }, session));
-        /*EventStatus.EventStatusBuilder eventStatus = EventStatus.builder();
-        runInTransaction(() -> {
-            session.save(event);
-            eventStatus.status("Event is created");
-        }, session);*/
+
         return eventStatus.build();
     }
 
     @Override
     public Collection<Event> get() {
         Session session = sessionFactory.openSession();
-        //ArrayList<Event> eventList = new ArrayList<Event>(session.loadAll(Event.class));
         Collection<Event> eventList = (Collection<Event>) session.query(Event.class, "MATCH (e:Event) RETURN e LIMIT 25", Collections.emptyMap());
-        //Collection<Event> eventList = session.loadAll(Event.class);
+
         return eventList;
 
     }

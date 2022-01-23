@@ -34,4 +34,17 @@ public class SubEventResource {
         return subEventService.create(subEvent,eventId );
 
     }
+
+
+    @PUT
+    @Path("/{event_id}/subevent/{subEvent_id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public EventStatus updateEvent(@Valid @NotNull SubEvent subEvent, @PathParam("event_id") long eventId, @PathParam("subEvent_id") long subEventId){
+
+        return subEventService.update(subEvent,eventId, subEventId );
+
+    }
+    //TODO Get all SubEvent for an eventId
+    //TODO Delete SubEvent for an Event id
 }

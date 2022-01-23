@@ -2,6 +2,7 @@ package com.party.vo;
 
 import com.party.vo.converter.LocalTimeConverter;
 import lombok.Data;
+import lombok.ToString;
 import org.neo4j.ogm.annotation.*;
 import org.neo4j.ogm.annotation.typeconversion.Convert;
 import org.neo4j.ogm.annotation.typeconversion.DateString;
@@ -12,6 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
+@ToString
 @NodeEntity
 public class SubEvent {
     @Id

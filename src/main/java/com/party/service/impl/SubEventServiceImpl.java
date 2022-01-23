@@ -7,6 +7,7 @@ import com.party.vo.SubEvent;
 import com.party.vo.status.EventStatus;
 import org.neo4j.ogm.session.Session;
 import org.neo4j.ogm.session.SessionFactory;
+import org.springframework.beans.BeanUtils;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -50,6 +51,51 @@ public final class SubEventServiceImpl extends SubEventService {
         return eventStatus;
     }
 
+    /**
+     * Check if event is present
+     *  get list of all subevents:
+     *      If subevent is present:
+     *          then update subevent
+     *      else:
+     *          return subenevr does not exist
+     * else:
+     *  Return : Event does not exist
+     *
+     * @param newSubEvent SubEvent
+     * @param eventId Event Id
+     * @param subEventId SubEvent Id
+     * @return EventStatus status
+     */
+    @Override
+    public EventStatus update(SubEvent newSubEvent, long eventId, long subEventId) {
+        Session session = sessionFactory.openSession();
+        EventStatus eventStatus = EventStatus.builder().build();
+        Optional<Event> optionalEvent = getOptionalEventById(eventId,session);
+        //If event present
+        optionalEvent.ifPresentOrElse((event -> {
+                                                    Optional<SubEvent> resultSE = event.getSubEvent().stream().filter(se -> se.getId() == subEventId).findFirst();
+                                                    resultSE.ifPresentOrElse(oldSubEvent -> {
+                                                                                                BeanUtils.copyProperties(newSubEvent, oldSubEvent, getNullPropertyNames(newSubEvent));
+                                                                                                runInTransaction(() -> session.save(event), session);
+                                                                                                eventStatus.setStatus("SubEvent with id " + subEventId + " is updated");
+                                                                                             },
+                                                                                        () -> {
+                                                                                                eventStatus.setStatus("Failed to update SubEvent: " + subEventId);
+                                                                                                EventError error = EventError.builder().errorDesc("SubEvent not found").build();
+                                                                                                eventStatus.setError(error);
+                                                                                               }
+                                                                               );
+                                               }
+                                       ),
+                                        () -> {
+                                                eventStatus.setStatus("Failed to update SubEvent: " + subEventId);
+                                                EventError error= EventError.builder().errorDesc("Event id:" + eventId + " does not exist").build();
+                                                eventStatus.setError(error);
+                                               }
+                                               );
+
+        return eventStatus;
+    }
 
 
     private Optional<Event> getOptionalEventById(long eventId, Session session) {

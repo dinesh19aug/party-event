@@ -1,10 +1,12 @@
 package com.party.service;
 
 import com.party.vo.SubEvent;
-import com.party.vo.status.EventStatus;
+import com.party.vo.status.SubEventStatus;
 
 public abstract class SubEventService implements IBaseService{
-    public abstract EventStatus create(SubEvent event, Long eventId);
+    public abstract SubEventStatus create(SubEvent event, Long eventId);
 
-    public abstract EventStatus update(SubEvent subEvent, long id, long eventId);
+    public abstract SubEventStatus update(SubEvent subEvent, long id, long eventId);
+
+    public abstract SubEventStatus getAllSubEvents(long eventId);
 }

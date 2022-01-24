@@ -3,7 +3,8 @@ package com.party.resource;
 import com.party.service.SubEventService;
 import com.party.service.impl.SubEventServiceImpl;
 import com.party.vo.SubEvent;
-import com.party.vo.status.EventStatus;
+import com.party.vo.status.SubEventStatus;
+
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -29,7 +30,7 @@ public class SubEventResource {
     @Path("/{event_id}/subevent")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public EventStatus createEvent(@Valid @NotNull SubEvent subEvent, @PathParam("event_id") long eventId){
+    public SubEventStatus createEvent(@Valid @NotNull SubEvent subEvent, @PathParam("event_id") long eventId){
 
         return subEventService.create(subEvent,eventId );
 
@@ -40,11 +41,26 @@ public class SubEventResource {
     @Path("/{event_id}/subevent/{subEvent_id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public EventStatus updateEvent(@Valid @NotNull SubEvent subEvent, @PathParam("event_id") long eventId, @PathParam("subEvent_id") long subEventId){
+    public SubEventStatus updateEvent(@Valid @NotNull SubEvent subEvent, @PathParam("event_id") long eventId, @PathParam("subEvent_id") long subEventId){
 
         return subEventService.update(subEvent,eventId, subEventId );
 
     }
-    //TODO Get all SubEvent for an eventId
-    //TODO Delete SubEvent for an Event id
+
+    /**
+     * Get all sub events for a given event id
+     * @param eventId Event id
+      * @return SubEventStatus Status
+     */
+    @GET
+    @Path("/{event_id}/subevent")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public SubEventStatus updateEvent(@PathParam("event_id") long eventId){
+        return subEventService.getAllSubEvents(eventId);
+
+    }
+    //TODO Delete SubEvent id for a given Event id
+    //TODO Delete all subevent for a given Event Id
+    //TODO Get Subevent by id for given event id
 }

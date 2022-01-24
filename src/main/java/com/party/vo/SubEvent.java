@@ -9,7 +9,6 @@ import org.neo4j.ogm.annotation.typeconversion.DateString;
 
 import java.time.LocalTime;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -51,8 +50,8 @@ public class SubEvent {
     @Property(name = "event_description")
     private String eventDescription;
 
-    @Relationship(type = "has_subevent", direction = Relationship.INCOMING)
-    Set<Event> event = new HashSet<>();
+    @Relationship(type = "HAS_SUBEVENT", direction = Relationship.INCOMING)
+    Set<Event> event;
 
 
 }

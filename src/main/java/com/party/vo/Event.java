@@ -1,10 +1,11 @@
 
 package com.party.vo;
 
+import lombok.Data;
 import org.neo4j.ogm.annotation.*;
 import org.neo4j.ogm.annotation.typeconversion.EnumString;
 
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -12,8 +13,8 @@ import java.util.Set;
  *
  * @author dinesh
  */
-
-@NodeEntity
+@Data
+@NodeEntity("Event")
 public class Event {
   @Id
   @GeneratedValue
@@ -33,19 +34,10 @@ public class Event {
   @Property
   private String eventUrl;
 
-  @Relationship(type = "is_invited")
-  Set<Person> guests;
 
-  @Relationship(type = "has_subevent")
-  List<SubEvent> subEvent;
 
-  public List<SubEvent> getSubEvent() {
-    return subEvent;
-  }
-
-  public void setSubEvent(List<SubEvent> subEvent) {
-    this.subEvent = subEvent;
-  }
+  @Relationship(type = "HAS_SUBEVENT", direction = Relationship.OUTGOING)
+  Set<SubEvent> subEvent = new HashSet<>();
 
   public String getEventName() {
     return eventName;
@@ -89,13 +81,6 @@ public class Event {
     this.eventUrl = eventUrl;
   }
 
-  public Set<Person> getGuests() {
-    return guests;
-  }
-
-  public void setGuests(Set<Person> guests) {
-    this.guests = guests;
-  }
 
 
 

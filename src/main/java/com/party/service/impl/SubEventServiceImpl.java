@@ -77,10 +77,10 @@ public class SubEventServiceImpl extends SubEventService {
         Optional<Event> optionalEvent = getOptionalEventById(eventId, session);
 
         optionalEvent.ifPresentOrElse((event -> {
-                    Optional<SubEvent> resultSE = event.getSubEvent().stream().filter(se -> se.getId() == subEventId).findFirst();
+                    Optional<SubEvent> resultSE = getOptionalSubEventBySubEventId(eventId,session).stream().filter(se -> se.getId() == subEventId).findFirst();
                     resultSE.ifPresentOrElse(oldSubEvent -> {
                                 BeanUtils.copyProperties(newSubEvent, oldSubEvent, getNullPropertyNames(newSubEvent));
-                                runInTransaction(() -> session.save(event), session);
+                                runInTransaction(() -> session.save(oldSubEvent), session);
                         subEventStatus.setStatus("SubEvent with id " + subEventId + " is updated");
                             },() -> {
                         subEventStatus.setStatus("Failed to update SubEvent: " + subEventId);

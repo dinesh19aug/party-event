@@ -60,7 +60,13 @@ public class SubEventResource {
         return subEventService.getAllSubEvents(eventId);
 
     }
-    //TODO Delete SubEvent id for a given Event id
+     @DELETE
+    @Path("/{event_id}/subevent/{subEvent_id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public SubEventStatus deleteSubEventById(@PathParam("event_id") long eventId, @PathParam("subEvent_id") long subEventId){
+        return subEventService.deleteSubEventById(eventId, subEventId);
+    }
     //TODO Delete all subevent for a given Event Id
     //TODO Get Subevent by id for given event id
 }

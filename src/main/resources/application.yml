@@ -9,3 +9,5 @@ quarkus:
 
   arc:
     transform-unproxyable-classes: true
+  swagger-ui:
+        always-include: true

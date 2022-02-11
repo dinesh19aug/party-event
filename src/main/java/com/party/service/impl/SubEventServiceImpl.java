@@ -109,6 +109,35 @@ public final class SubEventServiceImpl extends SubEventService {
         return subEventStatus;
     }
 
+    @Override
+    public SubEventStatus deleteSubEventById(long eventId, long subEventId) {
+        SubEventStatus subEventStatus = new SubEventStatus();
+        Session session = sessionFactory.openSession();
+        Optional<Event> optionalEvent = getOptionalEventById(eventId, session);
+
+        optionalEvent.ifPresentOrElse((event) -> {
+            Optional<SubEvent> resultSE = getOptionalSubEventBySubEventId(eventId,session).stream().filter(se -> se.getId() == subEventId).findFirst();
+            resultSE.ifPresentOrElse(subEventTobeDeleted -> {
+               //Run delete
+                runInTransaction(()->{
+                   /* session.query(SubEvent.class,"MATCH(e:Event)-[r]->(s:SubEvent)\n" +
+                            "WHERE ID(e)=$eventId AND ID(s)=$subeventId \n" +
+                            "DETACH DELETE s", Map.of("eventId", eventId, "subeventId", subEventId));*/
+                    session.delete(subEventTobeDeleted);
+                    subEventStatus.setStatus("SubEvent: ".concat(String.valueOf(subEventId)).concat(" is deleted for eventId: ").concat(String.valueOf(eventId)));
+                }, session);
+            },() -> {// Subevent not found
+                subEventStatus.setStatus("Failed to delete SubEvent: " + subEventId);
+                EventError error = EventError.builder().errorDesc("SubEvent not found").build();
+                subEventStatus.setError(error);
+            });
+
+            //Event not found
+        }, () -> subEventStatus.setError(EventError.builder().errorDesc("Event with id " + eventId +" subEvent Id: "+ subEventId + " is not found").build()));
+        return subEventStatus;
+
+    }
+
 
     private Optional<Event> getOptionalEventById(long eventId, Session session) {
         return Optional.ofNullable(session.load(Event.class, eventId));

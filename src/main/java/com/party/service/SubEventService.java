@@ -11,4 +11,6 @@ public abstract class SubEventService implements IBaseService{
     public abstract SubEventStatus getAllSubEvents(long eventId);
 
     public abstract SubEventStatus deleteSubEventById(long eventId, long subEventId);
+
+    public abstract SubEventStatus deleteAllSubeventByEventId(long eventId);
 }

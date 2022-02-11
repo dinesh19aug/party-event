@@ -14,10 +14,17 @@ import javax.inject.Inject;
 import java.util.*;
 
 @ApplicationScoped
-public final class SubEventServiceImpl extends SubEventService {
+
+public class SubEventServiceImpl extends SubEventService {
+
+    public SubEventServiceImpl(){}
+
+    SessionFactory sessionFactory;
 
     @Inject
-    SessionFactory sessionFactory;
+    public SubEventServiceImpl(SessionFactory s){
+        this.sessionFactory = s;
+    }
 
     @Override
     public SubEventStatus create(SubEvent subEvent, Long eventId) {
@@ -109,6 +116,12 @@ public final class SubEventServiceImpl extends SubEventService {
         return subEventStatus;
     }
 
+    /**
+     * Delete subevent by subeventId for a given eventId
+     * @param eventId Event Id
+     * @param subEventId Subevent Id
+     * @return SubEventStatus
+     */
     @Override
     public SubEventStatus deleteSubEventById(long eventId, long subEventId) {
         SubEventStatus subEventStatus = new SubEventStatus();
@@ -136,6 +149,24 @@ public final class SubEventServiceImpl extends SubEventService {
         }, () -> subEventStatus.setError(EventError.builder().errorDesc("Event with id " + eventId +" subEvent Id: "+ subEventId + " is not found").build()));
         return subEventStatus;
 
+    }
+
+    @Override
+    public SubEventStatus deleteAllSubeventByEventId(long eventId) {
+        SubEventStatus subEventStatus = new SubEventStatus();
+        Session session = sessionFactory.openSession();
+        Optional<Event> optionalEvent = getOptionalEventById(eventId, session);
+        optionalEvent.ifPresentOrElse((event -> {
+                    List<SubEvent> resultSE = getOptionalSubEventBySubEventId(eventId,session);
+                    for(SubEvent s: resultSE){
+                        runInTransaction(()->session.delete(s),session) ;
+                    }
+                    subEventStatus.setStatus("All Subevents deleted for Event: ".concat(String.valueOf(eventId)));
+                })
+                , () ->{//Event not found
+                    subEventStatus.setError(EventError.builder().errorDesc("Event with id " + eventId + " is not found").build());
+                });
+        return subEventStatus;
     }
 
 

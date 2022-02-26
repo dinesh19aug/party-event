@@ -1,5 +1,5 @@
 
-package com.party.resource;
+package com.party.resource.event;
 
 import com.party.service.EventService;
 import com.party.service.impl.EventServiceImpl;

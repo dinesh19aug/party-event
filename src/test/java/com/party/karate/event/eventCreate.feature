@@ -1,4 +1,4 @@
-Feature: Create event nodes
+Feature: Test all Event CRUD actions
 
   Background: Create events and get first event id
     * url baseUrl

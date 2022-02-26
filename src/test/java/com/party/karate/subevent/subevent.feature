@@ -22,5 +22,6 @@ Feature: Test all Subevent CRUD
       And header Accept = 'application/json'
       And method GET
       Then print response
+      And match response.subEvents == '#[1]'
 
 

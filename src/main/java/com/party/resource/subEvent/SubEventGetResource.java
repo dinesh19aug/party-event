@@ -35,12 +35,15 @@ public SubEventGetResource(SubEventServiceImpl s){
  */
 @GET
 @Path("/{event_id}/subevent")
-public SubEventStatus updateEvent(@PathParam("event_id") long eventId){
+public SubEventStatus getAllSubeventByEventId(@PathParam("event_id") long eventId){
         return subEventService.getAllSubEvents(eventId);
 
         }
 
-    /*@GET
+    @GET
     @Path("/{event_id}/subevent/{subEvent_id}")
-    public SubEventStatus*/
-        }
+    public SubEventStatus getSubEventById(@PathParam("event_id") long eventId, @PathParam( "subEvent_id") long subEventId){
+        return subEventService.getSubEventById(eventId, subEventId);
+    }
+
+}

@@ -30,6 +30,16 @@ Feature: Create event nodes
     And match response $.status == 'Event is not created'
     And status 200
 
+    Scenario: Get all events. Must get back atleast one event
+      Given path '/party/event'
+      And header Accept = 'application/json'
+      And method GET
+      Then print response
+      And match response  == '##[_ > 0]'
+      And status 200
+
+
+
 
 
 

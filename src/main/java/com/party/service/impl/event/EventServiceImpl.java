@@ -1,4 +1,4 @@
-package com.party.service.impl;
+package com.party.service.impl.event;
 
 import com.party.service.EventService;
 import com.party.vo.Event;

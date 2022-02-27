@@ -1,7 +1,7 @@
 package com.party.resource.subEvent;
 
 import com.party.service.SubEventService;
-import com.party.service.impl.SubEventServiceImpl;
+import com.party.service.impl.subEvent.SubEventServiceImpl;
 import com.party.vo.SubEvent;
 import com.party.vo.status.SubEventStatus;
 

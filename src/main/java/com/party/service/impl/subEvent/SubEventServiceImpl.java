@@ -1,4 +1,4 @@
-package com.party.service.impl;
+package com.party.service.impl.subEvent;
 
 import com.party.service.SubEventService;
 import com.party.vo.Event;
@@ -96,25 +96,7 @@ public class SubEventServiceImpl extends SubEventService {
         return subEventStatus;
     }
 
-    @Override
-    public SubEventStatus getAllSubEvents(long eventId) {
-         new ArrayList<>();
-        SubEventStatus subEventStatus = new SubEventStatus();
-        Session session = sessionFactory.openSession();
 
-        Optional<Event> optionalEvent = getOptionalEventById(eventId, session);
-        optionalEvent.ifPresentOrElse((event)->{
-             //event.getSubEvent().forEach(subEvent -> subEventList.add(subEvent));
-            List<SubEvent> subEventList =getOptionalSubEventBySubEventId(eventId,session);
-             subEventStatus.setSubEvents(subEventList);
-             subEventStatus.setStatus("Found: "+ (long) subEventList.size() + " sub events");
-
-        },()->{
-            subEventStatus.setStatus("0 events founds");
-            subEventStatus.setError(EventError.builder().errorDesc("Event: " + eventId + " not found").build());
-        });
-        return subEventStatus;
-    }
 
     /**
      * Delete subevent by subeventId for a given eventId
@@ -169,30 +151,7 @@ public class SubEventServiceImpl extends SubEventService {
         return subEventStatus;
     }
 
-    @Override
-    public SubEventStatus getSubEventById(long eventId, long subEventId) {
-        SubEventStatus subEventStatus = new SubEventStatus();
-        Session session = sessionFactory.openSession();
-        Optional<Event> optionalEvent = getOptionalEventById(eventId, session);
-        optionalEvent.ifPresentOrElse((event -> {
-                    List<SubEvent> resultSE = getOptionalSubEventByEventIdAndSubEventId(eventId, subEventId, session);
-                    if(resultSE.size()>0){
-                        subEventStatus.setSubEvents(resultSE);
-                        subEventStatus.setStatus(String.valueOf(resultSE.size()).concat(" Subevent found for subEventId: ")
-                                .concat(String.valueOf(subEventId)).concat(" and EventId: ")
-                                .concat(String.valueOf(eventId)));
-                    }else{
-                        subEventStatus.setStatus(" No Subevent found for subEventId: "
-                                .concat(String.valueOf(subEventId)).concat(" and EventId: ")
-                                .concat(String.valueOf(eventId)));
-                    }
 
-                })
-                , () ->{//Event not found
-                    subEventStatus.setError(EventError.builder().errorDesc("Event with id " + eventId + " is not found").build());
-                });
-        return subEventStatus;
-    }
 
     private List<SubEvent> getOptionalSubEventByEventIdAndSubEventId(long eventId, long subEventId, Session session) {
         return (List<SubEvent>) session.query(SubEvent.class,"MATCH (e:Event )-[:HAS_SUBEVENT]->(s:SubEvent) WHERE ID(e)=" + eventId

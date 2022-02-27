@@ -1,11 +1,13 @@
 package com.party.resource.subEvent;
 
 import com.party.service.SubEventService;
-import com.party.service.impl.SubEventServiceImpl;
+import com.party.service.impl.subEvent.SubEventServiceImpl;
+import com.party.service.impl.subEvent.ISubEventService;
 import com.party.vo.status.SubEventStatus;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
@@ -19,6 +21,13 @@ public class SubEventGetResource {
 public SubEventGetResource() {
 
         }
+@Inject
+@Named("getSubEventById")
+ISubEventService subEventIdService;
+
+@Inject
+@Named("getAllSubEvents")
+ISubEventService subEventAllService;
 
 @Inject
 public SubEventGetResource(SubEventServiceImpl s){
@@ -36,14 +45,15 @@ public SubEventGetResource(SubEventServiceImpl s){
 @GET
 @Path("/{event_id}/subevent")
 public SubEventStatus getAllSubeventByEventId(@PathParam("event_id") long eventId){
-        return subEventService.getAllSubEvents(eventId);
+        return (SubEventStatus) subEventAllService.process(eventId);
 
         }
 
     @GET
     @Path("/{event_id}/subevent/{subEvent_id}")
-    public SubEventStatus getSubEventById(@PathParam("event_id") long eventId, @PathParam( "subEvent_id") long subEventId){
-        return subEventService.getSubEventById(eventId, subEventId);
+    public SubEventStatus getSubEventById(@PathParam("event_id") Long eventId, @PathParam( "subEvent_id") Long subEventId){
+        return (SubEventStatus) subEventIdService.process(eventId,subEventId);
+
     }
 
 }

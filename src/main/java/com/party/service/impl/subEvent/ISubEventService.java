@@ -17,7 +17,7 @@ public interface ISubEventService<T> {
         return Optional.ofNullable(session.load(Event.class, eventId));
     }
 
-    default List<SubEvent> getOptionalSubEventBySubEventId(long eventId, Session session){
-        return (List<SubEvent>) session.query(SubEvent.class,"MATCH (e:Event )-[:HAS_SUBEVENT]->(s:SubEvent) WHERE ID(e)=" + eventId + " RETURN s", Collections.emptyMap());
+    default List<SubEvent> getOptionalSubEventBySubEventId(long eventId, Session session) {
+        return (List<SubEvent>) session.query(SubEvent.class, "MATCH (e:Event )-[:HAS_SUBEVENT]->(s:SubEvent) WHERE ID(e)=" + eventId + " RETURN s", Collections.emptyMap());
     }
 }

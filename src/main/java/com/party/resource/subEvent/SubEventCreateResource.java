@@ -1,12 +1,13 @@
 package com.party.resource.subEvent;
 
-import com.party.service.SubEventService;
-import com.party.service.impl.subEvent.SubEventServiceImpl;
+import com.party.service.impl.subEvent.ISubEventService;
+import com.party.service.impl.subEvent.impl.SubEventCreate;
 import com.party.vo.SubEvent;
 import com.party.vo.status.SubEventStatus;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
@@ -20,13 +21,14 @@ import javax.ws.rs.core.MediaType;
 public class SubEventCreateResource {
 
 
-    SubEventService subEventService;
+    ISubEventService subEventService;
     public SubEventCreateResource() {
 
     }
 
     @Inject
-    public SubEventCreateResource(SubEventServiceImpl s){
+    @Named("subEventCreate")
+    public SubEventCreateResource(SubEventCreate s){
         this.subEventService=s;
     }
 
@@ -41,7 +43,7 @@ public class SubEventCreateResource {
     @Path("/{event_id}/subevent")
     public SubEventStatus createEvent(@Valid @NotNull SubEvent subEvent, @PathParam("event_id") long eventId){
 
-        return subEventService.create(subEvent,eventId );
+        return (SubEventStatus) subEventService.process(subEvent,eventId );
 
     }
 

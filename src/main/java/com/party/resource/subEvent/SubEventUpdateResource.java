@@ -1,7 +1,7 @@
 package com.party.resource.subEvent;
 
-import com.party.service.SubEventService;
-import com.party.service.impl.subEvent.SubEventServiceImpl;
+import com.party.service.impl.subEvent.ISubEventService;
+import com.party.service.impl.subEvent.impl.SubEventUpdate;
 import com.party.vo.SubEvent;
 import com.party.vo.status.SubEventStatus;
 
@@ -18,14 +18,14 @@ import javax.ws.rs.core.MediaType;
 @RequestScoped
 public class SubEventUpdateResource {
 
-    SubEventService subEventService;
+     ISubEventService subEventUpdate;
     public SubEventUpdateResource() {
 
     }
 
     @Inject
-    public SubEventUpdateResource(SubEventServiceImpl s){
-        this.subEventService=s;
+    public SubEventUpdateResource(SubEventUpdate s){
+        this.subEventUpdate=s;
     }
 
 
@@ -33,7 +33,7 @@ public class SubEventUpdateResource {
     @Path("/{event_id}/subevent/{subEvent_id}")
     public SubEventStatus updateEvent(@Valid @NotNull SubEvent subEvent, @PathParam("event_id") long eventId, @PathParam("subEvent_id") long subEventId){
 
-        return subEventService.update(subEvent,eventId, subEventId );
+        return (SubEventStatus) subEventUpdate.process(subEvent,eventId, subEventId );
 
     }
 

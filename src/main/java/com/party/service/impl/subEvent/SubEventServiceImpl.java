@@ -7,7 +7,6 @@ import com.party.vo.SubEvent;
 import com.party.vo.status.SubEventStatus;
 import org.neo4j.ogm.session.Session;
 import org.neo4j.ogm.session.SessionFactory;
-import org.springframework.beans.BeanUtils;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -30,46 +29,7 @@ public class SubEventServiceImpl extends SubEventService {
     }
 
 
-    /**
-     * Check if event is present
-     * get list of all subevents:
-     * If subevent is present:
-     * then update subevent
-     * else:
-     * return subenevr does not exist
-     * else:
-     * Return : Event does not exist
-     *
-     * @param newSubEvent SubEvent
-     * @param eventId     Event Id
-     * @param subEventId  SubEvent Id
-     * @return EventStatus status
-     */
-    @Override
-    public SubEventStatus update(SubEvent newSubEvent, long eventId, long subEventId) {
-        Session session = sessionFactory.openSession();
-        SubEventStatus subEventStatus = new SubEventStatus();
-        Optional<Event> optionalEvent = getOptionalEventById(eventId, session);
 
-        optionalEvent.ifPresentOrElse((event -> {
-            Optional<SubEvent> resultSE = getOptionalSubEventBySubEventId(eventId, session).stream().filter(se -> se.getId() == subEventId).findFirst();
-            resultSE.ifPresentOrElse(oldSubEvent -> {
-                BeanUtils.copyProperties(newSubEvent, oldSubEvent, getNullPropertyNames(newSubEvent));
-                runInTransaction(() -> session.save(oldSubEvent), session);
-                subEventStatus.setStatus("SubEvent with id " + subEventId + " is updated");
-            }, () -> {
-                subEventStatus.setStatus("Failed to update SubEvent: " + subEventId);
-                EventError error = EventError.builder().errorDesc("SubEvent not found").build();
-                subEventStatus.setError(error);
-            });
-        }), () -> {
-            subEventStatus.setStatus("Failed to update SubEvent: " + subEventId);
-            EventError error = EventError.builder().errorDesc("Event id:" + eventId + " does not exist").build();
-            subEventStatus.setError(error);
-        });
-
-        return subEventStatus;
-    }
 
 
     /**

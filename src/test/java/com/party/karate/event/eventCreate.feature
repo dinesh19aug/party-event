@@ -5,7 +5,7 @@ Feature: Test all Event CRUD actions
   * def eventRequest =
     """
     {
-      "eventName":"My Integration test",
+      "eventName":"My Integration test1",
       "eventType": "TALK",
       "orgName": "Party Inc",
       "orgUrl":"www.org",
@@ -13,7 +13,7 @@ Feature: Test all Event CRUD actions
     }
     """
   Scenario: Given event details create a event node in Neo4j and you should not be able to creat the same event again
-    Given path '/party/event'
+    Given url baseUrl
     And header Accept = 'application/json'
     And request eventRequest
     And method POST
@@ -21,7 +21,7 @@ Feature: Test all Event CRUD actions
     Then  print response
     And match response $.status == 'Event is created'
     And status 200
-    Given url '/party/event'
+    Given url baseUrl
     And header Accept = 'application/json'
     And request eventRequest
     When method POST
@@ -31,7 +31,7 @@ Feature: Test all Event CRUD actions
     And status 200
 
     Scenario: Get all events. Must get back atleast one event
-      Given path '/party/event'
+      Given url baseUrl
       And header Accept = 'application/json'
       And method GET
       Then print response

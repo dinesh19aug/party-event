@@ -1,7 +1,7 @@
 package com.party.resource.subEvent;
 
-import com.party.service.impl.subEvent.ISubEventService;
-import com.party.service.impl.subEvent.impl.SubEventCreate;
+import com.party.service.subEvent.ISubEventService;
+import com.party.service.subEvent.impl.SubEventCreate;
 import com.party.vo.SubEvent;
 import com.party.vo.status.SubEventStatus;
 
@@ -21,7 +21,7 @@ import javax.ws.rs.core.MediaType;
 public class SubEventCreateResource {
 
 
-    ISubEventService subEventService;
+    ISubEventService<SubEventStatus> subEventService;
     public SubEventCreateResource() {
 
     }
@@ -43,7 +43,7 @@ public class SubEventCreateResource {
     @Path("/{event_id}/subevent")
     public SubEventStatus createEvent(@Valid @NotNull SubEvent subEvent, @PathParam("event_id") long eventId){
 
-        return (SubEventStatus) subEventService.process(subEvent,eventId );
+        return subEventService.process(subEvent,eventId );
 
     }
 

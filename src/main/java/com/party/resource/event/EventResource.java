@@ -1,8 +1,8 @@
 
 package com.party.resource.event;
 
-import com.party.service.EventService;
-import com.party.service.impl.event.EventServiceImpl;
+import com.party.service.event.EventService;
+import com.party.service.event.impl.EventServiceImpl;
 import com.party.vo.Event;
 import com.party.vo.status.EventStatus;
 

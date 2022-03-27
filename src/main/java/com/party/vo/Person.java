@@ -1,12 +1,8 @@
 
 package com.party.vo;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Property;
-import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotation.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,6 +14,10 @@ import java.util.Set;
 @Data
 @NodeEntity
 public class Person {
+    @Id
+    @GeneratedValue
+    Long id;
+
     @Property
     private String firstName;
 
@@ -25,11 +25,11 @@ public class Person {
     private String lastName;
 
     @Property
-    private String MobileNumber;
+    private String mobileNumber;
 
     @Property
     private String emailAddress;
 
-    @Relationship(type = "is_invited", direction = Relationship.INCOMING)
+    @Relationship(type = "IS_INVITED", direction = Relationship.INCOMING)
     Set<Event> event = new HashSet<>();
 }

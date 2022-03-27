@@ -1,6 +1,7 @@
-package com.party.service.impl.subEvent.impl;
+package com.party.service.subEvent.impl;
 
-import com.party.service.impl.subEvent.ISubEventService;
+import com.party.service.IBaseService;
+import com.party.service.subEvent.ISubEventService;
 import com.party.vo.Event;
 import com.party.vo.EventError;
 import com.party.vo.SubEvent;
@@ -17,7 +18,7 @@ import java.util.Optional;
 
 @ApplicationScoped
 @Named("getSubEventById")
-public class SubEventServiceReadById implements ISubEventService {
+public class SubEventServiceReadById implements ISubEventService<SubEventStatus>, IBaseService {
 
     SessionFactory sessionFactory;
 
@@ -58,7 +59,7 @@ public class SubEventServiceReadById implements ISubEventService {
     }
 
     private List<SubEvent> getOptionalSubEventByEventIdAndSubEventId(long eventId, long subEventId, Session session) {
-        return (List<SubEvent>) session.query(SubEvent.class,"MATCH (e:Event )-[:HAS_SUBEVENT]->(s:SubEvent) WHERE ID(e)=" + eventId
+        return (List<SubEvent>) session.query(SubEvent.class,"MATCH (e:Event )-[:HAS_SUBEVENT]->(s:SUB_EVENT) WHERE ID(e)=" + eventId
                 + " AND ID(s)=" + subEventId
                 + " RETURN s", Collections.emptyMap());
     }

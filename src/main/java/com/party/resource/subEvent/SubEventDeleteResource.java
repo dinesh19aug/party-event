@@ -1,7 +1,7 @@
 package com.party.resource.subEvent;
 
-import com.party.service.SubEventService;
-import com.party.service.impl.subEvent.SubEventServiceImpl;
+import com.party.service.subEvent.SubEventService;
+import com.party.service.subEvent.SubEventServiceImpl;
 import com.party.vo.status.SubEventStatus;
 
 import javax.enterprise.context.RequestScoped;

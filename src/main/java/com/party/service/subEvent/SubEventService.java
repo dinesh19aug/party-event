@@ -1,5 +1,6 @@
-package com.party.service;
+package com.party.service.subEvent;
 
+import com.party.service.IBaseService;
 import com.party.vo.status.SubEventStatus;
 
 public abstract class SubEventService implements IBaseService {

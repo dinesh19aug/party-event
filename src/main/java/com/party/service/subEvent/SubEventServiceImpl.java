@@ -1,6 +1,5 @@
-package com.party.service.impl.subEvent;
+package com.party.service.subEvent;
 
-import com.party.service.SubEventService;
 import com.party.vo.Event;
 import com.party.vo.EventError;
 import com.party.vo.SubEvent;
@@ -87,12 +86,12 @@ public class SubEventServiceImpl extends SubEventService {
     }
 
 
-    private Optional<Event> getOptionalEventById(long eventId, Session session) {
+    /*private Optional<Event> getOptionalEventById(long eventId, Session session) {
         return Optional.ofNullable(session.load(Event.class, eventId));
-    }
+    }*/
 
     private List<SubEvent> getOptionalSubEventBySubEventId(long eventId, Session session) {
-        return (List<SubEvent>) session.query(SubEvent.class, "MATCH (e:Event )-[:HAS_SUBEVENT]->(s:SubEvent) WHERE ID(e)=" + eventId + " RETURN s", Collections.emptyMap());
+        return (List<SubEvent>) session.query(SubEvent.class, "MATCH (e:Event )-[:HAS_SUBEVENT]->(s:SUB_EVENT) WHERE ID(e)=" + eventId + " RETURN s", Collections.emptyMap());
     }
 
 }

@@ -1,7 +1,7 @@
-package com.party.service.impl.subEvent.impl;
+package com.party.service.subEvent.impl;
 
 import com.party.service.IBaseService;
-import com.party.service.impl.subEvent.ISubEventService;
+import com.party.service.subEvent.ISubEventService;
 import com.party.vo.Event;
 import com.party.vo.EventError;
 import com.party.vo.SubEvent;
@@ -18,7 +18,7 @@ import java.util.Set;
 
 @ApplicationScoped
 @Named("subEventCreate")
-public class SubEventCreate implements ISubEventService, IBaseService {
+public class SubEventCreate implements ISubEventService<SubEventStatus>, IBaseService {
     SessionFactory sessionFactory;
 
     @Inject
@@ -27,7 +27,7 @@ public class SubEventCreate implements ISubEventService, IBaseService {
     }
 
     @Override
-    public Object process(Object... args) {
+    public SubEventStatus process(Object... args) {
         return create((SubEvent) args[0], (long) args[1]);
     }
 

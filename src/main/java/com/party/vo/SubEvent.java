@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Data
 @ToString
-@NodeEntity
+@NodeEntity(label = "SUBEVENT", value = "SUB_EVENT")
 public class SubEvent {
     @Id
     @GeneratedValue

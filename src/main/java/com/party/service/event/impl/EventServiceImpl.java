@@ -1,6 +1,6 @@
-package com.party.service.impl.event;
+package com.party.service.event.impl;
 
-import com.party.service.EventService;
+import com.party.service.event.EventService;
 import com.party.vo.Event;
 import com.party.vo.EventError;
 import com.party.vo.status.EventStatus;

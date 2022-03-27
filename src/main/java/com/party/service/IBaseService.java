@@ -1,13 +1,11 @@
 package com.party.service;
 
+import com.party.vo.Event;
 import org.neo4j.ogm.session.Session;
 import org.neo4j.ogm.transaction.Transaction;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public interface IBaseService {
     default String[] getNullPropertyNames(Object source) {
@@ -39,5 +37,9 @@ public interface IBaseService {
             transaction.rollback();
             throw e;
         }
+    }
+
+    default Optional<Event> getOptionalEventById(long eventId, Session session) {
+        return Optional.ofNullable(session.load(Event.class, eventId));
     }
 }

@@ -39,6 +39,9 @@ public class Event {
   @Relationship(type = "HAS_SUBEVENT")
   Set<SubEvent> subEvent = new HashSet<>();
 
+  @Relationship(type = "IS_INVITED")
+  Set<Person> person = new HashSet<>();
+
 
 
 

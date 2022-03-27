@@ -1,8 +1,8 @@
 package com.party.resource.subEvent;
 
-import com.party.service.SubEventService;
-import com.party.service.impl.subEvent.ISubEventService;
-import com.party.service.impl.subEvent.SubEventServiceImpl;
+import com.party.service.subEvent.SubEventService;
+import com.party.service.subEvent.ISubEventService;
+import com.party.service.subEvent.SubEventServiceImpl;
 import com.party.vo.status.SubEventStatus;
 
 import javax.enterprise.context.RequestScoped;
@@ -20,10 +20,10 @@ public class SubEventGetResource {
     SubEventService subEventService;
     @Inject
     @Named("getSubEventById")
-    ISubEventService subEventIdService;
+    ISubEventService<SubEventStatus> subEventIdService;
     @Inject
     @Named("getAllSubEvents")
-    ISubEventService subEventAllService;
+    ISubEventService<SubEventStatus> subEventAllService;
 
     public SubEventGetResource() {
 
@@ -44,14 +44,14 @@ public class SubEventGetResource {
     @GET
     @Path("/{event_id}/subevent")
     public SubEventStatus getAllSubeventByEventId(@PathParam("event_id") long eventId) {
-        return (SubEventStatus) subEventAllService.process(eventId);
+        return subEventAllService.process(eventId);
 
     }
 
     @GET
     @Path("/{event_id}/subevent/{subEvent_id}")
     public SubEventStatus getSubEventById(@PathParam("event_id") Long eventId, @PathParam("subEvent_id") Long subEventId) {
-        return (SubEventStatus) subEventIdService.process(eventId, subEventId);
+        return subEventIdService.process(eventId, subEventId);
 
     }
 

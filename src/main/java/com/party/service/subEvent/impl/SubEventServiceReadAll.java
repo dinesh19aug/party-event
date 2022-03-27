@@ -1,6 +1,7 @@
-package com.party.service.impl.subEvent.impl;
+package com.party.service.subEvent.impl;
 
-import com.party.service.impl.subEvent.ISubEventService;
+import com.party.service.IBaseService;
+import com.party.service.subEvent.ISubEventService;
 import com.party.vo.Event;
 import com.party.vo.EventError;
 import com.party.vo.SubEvent;
@@ -17,7 +18,7 @@ import java.util.Optional;
 
 @ApplicationScoped
 @Named("getAllSubEvents")
-public class SubEventServiceReadAll implements ISubEventService {
+public class SubEventServiceReadAll implements ISubEventService<SubEventStatus>, IBaseService {
     SessionFactory sessionFactory;
 
     @Inject
@@ -26,7 +27,7 @@ public class SubEventServiceReadAll implements ISubEventService {
     }
 
     @Override
-    public Object process(Object... args) {
+    public SubEventStatus process(Object... args) {
         return getAllSubEvents((long) args[0]);
     }
 

@@ -17,9 +17,9 @@
         <quarkus.platform.version>2.4.2.Final</quarkus.platform.version>
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
         <lombok-maven-plugin.version>1.18.20.0</lombok-maven-plugin.version>
-        <neo4j-ogm-core.version>3.2.28</neo4j-ogm-core.version>
+        <neo4j-ogm-core.version>3.2.30</neo4j-ogm-core.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
-        <spring-beans.version>5.3.14</spring-beans.version>
+        <spring-beans.version>5.3.16</spring-beans.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -97,6 +97,11 @@
             <groupId>com.intuit.karate</groupId>
             <artifactId>karate-junit5</artifactId>
             <version>1.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>4.9.3</version>
         </dependency>
 
 

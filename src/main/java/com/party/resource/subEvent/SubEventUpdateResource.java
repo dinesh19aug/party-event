@@ -34,8 +34,5 @@ public class SubEventUpdateResource {
     public SubEventStatus updateEvent(@Valid @NotNull SubEvent subEvent, @PathParam("event_id") long eventId, @PathParam("subEvent_id") long subEventId){
 
         return subEventUpdate.process(subEvent,eventId, subEventId );
-
     }
-
-
 }

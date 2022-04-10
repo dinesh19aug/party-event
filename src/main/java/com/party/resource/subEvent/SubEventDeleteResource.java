@@ -24,10 +24,6 @@ public class SubEventDeleteResource {
         this.subEventService=s;
     }
 
-
-
-
-
     @DELETE
     @Path("/{event_id}/subevent/{subEvent_id}")
     public SubEventStatus deleteSubEventById(@PathParam("event_id") long eventId, @PathParam("subEvent_id") long subEventId){

@@ -39,9 +39,7 @@ public class PersonResource {
     @POST
     @Path("/{event_id}/person")
     public PersonStatus createPerson(@Valid @NotNull Person person, @PathParam("event_id") long eventId){
-
         return personService.process(person,eventId );
-
     }
 
 }

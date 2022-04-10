@@ -34,7 +34,6 @@ public class SubEventGetResource {
         this.subEventService = s;
     }
 
-
     /**
      * Get all sub events for a given event id
      *
@@ -54,5 +53,4 @@ public class SubEventGetResource {
         return subEventIdService.process(eventId, subEventId);
 
     }
-
 }

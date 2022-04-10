@@ -13,16 +13,37 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
 public class PersonReadResource {
-    @Named("personRead")
+
     IPersonService<PersonStatus> personService;
+
+    IPersonService<PersonStatus> personDetailService;
+
+    public PersonReadResource(@Named("personReadAll") IPersonService<PersonStatus> ps, @Named("personDetail") IPersonService<PersonStatus> pds){
+        this.personService = ps;
+        this.personDetailService = pds;
+    }
 
     /**
      * Get all guests for an event
+     * @param eventId Id of the event
+     * @return PersonStatus
      */
     @GET
     @Path("/{event_id}/person")
-    public PersonStatus getAllSubeventByEventId(@PathParam("event_id") long eventId) {
+    public PersonStatus getAllGuestsByEventId(@PathParam("event_id") long eventId) {
         return personService.process(eventId);
+    }
+
+    /**
+     * Get guest details of a given event
+      * @param eventId Event Id
+     * @param personId Person id
+     * @return PersonStatus
+     */
+    @GET
+    @Path("/{event_id}/person/{person_id}")
+    public PersonStatus getAllGuestsByEventId(@PathParam("event_id") long eventId, @PathParam("person_id") long personId) {
+        return personDetailService.process(eventId, personId);
 
     }
 }

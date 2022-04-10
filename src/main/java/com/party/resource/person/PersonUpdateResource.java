@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
 public class PersonUpdateResource {
-    @Named("PersonUpdate")
+    @Named("personUpdate")
     IPersonService<PersonStatus> personService;
 
     @PUT

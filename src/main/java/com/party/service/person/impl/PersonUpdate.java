@@ -16,7 +16,7 @@ import javax.inject.Named;
 import java.util.Optional;
 
 @ApplicationScoped
-@Named("PersonUpdate")
+@Named("personUpdate")
 public class PersonUpdate implements IPersonService<PersonStatus>, IBaseService {
     SessionFactory sessionFactory;
     @Inject

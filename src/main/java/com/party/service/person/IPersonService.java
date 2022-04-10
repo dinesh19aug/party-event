@@ -9,7 +9,12 @@ public interface IPersonService<T> {
     T process(Object... args);
 
     default List<Person> getAllGuestByEventId(Session session, long eventId) {
-        return (List<Person>) session.query(Person.class, "MATCH (e:Event )-[:IS_INVITED]->(p:Person) WHERE ID(e)=" + eventId + " RETURN p", Collections.emptyMap());
+        final String query = "MATCH (e:Event )-[:IS_INVITED]->(p:Person) " +
+                "WHERE ID(e)=$eventId  " +
+                "RETURN p";
+        Map<String, Object> params = new HashMap<>();
+        params.put("eventId", eventId);
+        return (List<Person>) session.query(Person.class, query, params);
     }
 
     default Person getPersonById(long eventId, long personId, Session session) {

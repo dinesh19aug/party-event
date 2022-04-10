@@ -17,16 +17,16 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @RequestScoped
-public class PersonResource {
+public class PersonCreateResource {
     IPersonService<PersonStatus> personService;
 
-    public PersonResource() {
+    public PersonCreateResource() {
 
     }
 
     @Inject
     @Named("personCreate")
-    public PersonResource(PersonCreate s){
+    public PersonCreateResource(PersonCreate s){
         this.personService=s;
     }
 

@@ -26,4 +26,16 @@ public interface IPersonService<T> {
         params.put("personId", personId);
          return  session.queryForObject(Person.class, query,params);
     }
+
+    default void deleteGuestById(long eventId, long personId, Session session) {
+        final String query = "MATCH (e:Event)-[:IS_INVITED]->(p:Person) " +
+                "WHERE ID(e)=$eventId and ID(p)=$personId " +
+                "DETACH DELETE p";
+        Map<String, Object> params = new HashMap<>();
+        params.put("eventId", eventId);
+        params.put("personId", personId);
+        session.query(Person.class, query,params);
+    }
+
+
 }

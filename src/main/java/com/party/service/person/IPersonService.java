@@ -37,5 +37,16 @@ public interface IPersonService<T> {
         session.query(Person.class, query,params);
     }
 
+    default Person getPersonMatch(long eventId, Person person, Session session){
+        String query = "MATCH (e:Event)-[:IS_INVITED]->(p:Person) " +
+                "WHERE ID(e) = $eventId AND p.mobileNumber = $mobileNumber AND p.emailAddress = $email " +
+                "RETURN p";
+        Map<String, Object> params = new HashMap<>();
+        params.put("eventId", eventId);
+        params.put("mobileNumber", person.getMobileNumber());
+        params.put("email", person.getEmailAddress());
+        return session.queryForObject(Person.class, query, params);
+    }
+
 
 }

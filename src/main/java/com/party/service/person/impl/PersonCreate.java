@@ -14,7 +14,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.Collections;
 import java.util.Optional;
-import java.util.Set;
 
 @ApplicationScoped
 @Named("personCreate")
@@ -36,16 +35,10 @@ public class PersonCreate implements IPersonService<PersonStatus>,  IBaseService
         Optional<Event> optionalEvent = getOptionalEventById(eventId,session);
         optionalEvent.ifPresentOrElse((event -> {
             //Check if person is already added
-            Optional<Set<Person>> optionalPersonList = Optional.ofNullable(event.getPerson());
+            Optional<Person> optionalPersonList = Optional.ofNullable(getPersonMatch(eventId, person, session));
             optionalPersonList.ifPresentOrElse((personList)->{
-                        personList.add(person);
-                        runInTransaction(() -> {
-                            event.setPerson(personList);
-                            session.save(event);
-                            personStatus.setStatus("Person added to event with id: " + eventId);
-                        }, session);
-                    }
-                    ,()-> runInTransaction(() -> {
+                        personStatus.setStatus("Person already exists for this eventId: " + eventId);
+                    },()-> runInTransaction(() -> {
                         event.setPerson(Collections.singleton(person));
                         session.save(event);
                         personStatus.setStatus("Person added to event with id: " + eventId);

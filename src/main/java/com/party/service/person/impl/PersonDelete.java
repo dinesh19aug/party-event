@@ -8,6 +8,7 @@ import com.party.vo.Person;
 import com.party.vo.status.PersonStatus;
 import org.neo4j.ogm.session.Session;
 import org.neo4j.ogm.session.SessionFactory;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;

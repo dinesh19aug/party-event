@@ -19,7 +19,7 @@
         <lombok-maven-plugin.version>1.18.20.0</lombok-maven-plugin.version>
         <neo4j-ogm-core.version>3.2.30</neo4j-ogm-core.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
-        <spring-beans.version>5.3.18</spring-beans.version>
+        <spring-beans.version>5.3.20</spring-beans.version>
     </properties>
     <dependencyManagement>
         <dependencies>
